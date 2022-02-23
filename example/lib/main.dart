@@ -15,17 +15,17 @@ class _MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<_MyApp> {
-  ScanResult scanResult;
+  ScanResult? scanResult;
 
   final _flashOnController = TextEditingController(text: "Flash on");
   final _flashOffController = TextEditingController(text: "Flash off");
   final _cancelController = TextEditingController(text: "Cancel");
 
   var _aspectTolerance = 0.00;
-  var _numberOfCameras = 0;
+  int? _numberOfCameras = 0;
   var _selectedCamera = -1;
-  var _useAutoFocus = true;
-  var _autoEnableFlash = false;
+  bool? _useAutoFocus = true;
+  bool? _autoEnableFlash = false;
 
   static final _possibleFormats = BarcodeFormat.values.toList()
     ..removeWhere((e) => e == BarcodeFormat.unknown);
@@ -52,19 +52,19 @@ class _MyAppState extends State<_MyApp> {
             children: <Widget>[
               ListTile(
                 title: Text("Result Type"),
-                subtitle: Text(scanResult.type?.toString() ?? ""),
+                subtitle: Text(scanResult!.type?.toString() ?? ""),
               ),
               ListTile(
                 title: Text("Raw Content"),
-                subtitle: Text(scanResult.rawContent ?? ""),
+                subtitle: Text(scanResult!.rawContent ?? ""),
               ),
               ListTile(
                 title: Text("Format"),
-                subtitle: Text(scanResult.format?.toString() ?? ""),
+                subtitle: Text(scanResult!.format?.toString() ?? ""),
               ),
               ListTile(
                 title: Text("Format note"),
-                subtitle: Text(scanResult.formatNote ?? ""),
+                subtitle: Text(scanResult!.formatNote ?? ""),
               ),
             ],
           ),
@@ -75,16 +75,16 @@ class _MyAppState extends State<_MyApp> {
         enabled: false,
       ),
       RadioListTile(
-        onChanged: (v) => setState(() => _selectedCamera = -1),
+        onChanged: (dynamic v) => setState(() => _selectedCamera = -1),
         value: -1,
         title: Text("Default camera"),
         groupValue: _selectedCamera,
       ),
     ];
 
-    for (var i = 0; i < _numberOfCameras; i++) {
+    for (var i = 0; i < _numberOfCameras!; i++) {
       contentList.add(RadioListTile(
-        onChanged: (v) => setState(() => _selectedCamera = i),
+        onChanged: (dynamic v) => setState(() => _selectedCamera = i),
         value: i,
         title: Text("Camera ${i + 1}"),
         groupValue: _selectedCamera,
@@ -252,10 +252,10 @@ class _MyAppState extends State<_MyApp> {
         },
         restrictFormat: selectedFormats,
         useCamera: _selectedCamera,
-        autoEnableFlash: _autoEnableFlash,
+        autoEnableFlash: _autoEnableFlash!,
         android: AndroidOptions(
           aspectTolerance: _aspectTolerance,
-          useAutoFocus: _useAutoFocus,
+          useAutoFocus: _useAutoFocus!,
         ),
       );
 

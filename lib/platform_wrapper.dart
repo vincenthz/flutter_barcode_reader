@@ -39,7 +39,7 @@ class BarcodeScanner {
     var events = _eventChannel.receiveBroadcastStream();
     var completer = Completer<ScanResult>();
 
-    StreamSubscription subscription;
+    late StreamSubscription subscription;
     subscription = events.listen((event) async {
       if (event is String) {
         if (event == cameraAccessGranted) {
@@ -74,7 +74,7 @@ class BarcodeScanner {
                 ..aspectTolerance = options.android.aspectTolerance
               /**/)
         /**/;
-    var buffer = await _channel.invokeMethod('scan', config?.writeToBuffer());
+    var buffer = await _channel.invokeMethod('scan', config.writeToBuffer());
     var tmpResult = proto.ScanResult.fromBuffer(buffer);
     return ScanResult(
       format: tmpResult.format,
@@ -86,7 +86,7 @@ class BarcodeScanner {
 
   /// Returns the number of cameras which are available
   /// Use n-1 as the index of the camera which should be used.
-  static Future<int> get numberOfCameras {
+  static Future<int?> get numberOfCameras {
     return _channel.invokeMethod('numberOfCameras');
   }
 }
