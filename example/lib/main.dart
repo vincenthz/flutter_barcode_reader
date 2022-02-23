@@ -100,7 +100,7 @@ class _MyAppState extends State<_MyApp> {
       ListTile(
         title: TextField(
           decoration: InputDecoration(
-            hasFloatingPlaceholder: true,
+            floatingLabelBehavior: FloatingLabelBehavior.auto,
             labelText: "Flash On",
           ),
           controller: _flashOnController,
@@ -109,7 +109,7 @@ class _MyAppState extends State<_MyApp> {
       ListTile(
         title: TextField(
           decoration: InputDecoration(
-            hasFloatingPlaceholder: true,
+            floatingLabelBehavior: FloatingLabelBehavior.auto,
             labelText: "Flash Off",
           ),
           controller: _flashOffController,
@@ -118,7 +118,7 @@ class _MyAppState extends State<_MyApp> {
       ListTile(
         title: TextField(
           decoration: InputDecoration(
-            hasFloatingPlaceholder: true,
+            floatingLabelBehavior: FloatingLabelBehavior.auto,
             labelText: "Cancel",
           ),
           controller: _cancelController,
@@ -188,7 +188,9 @@ class _MyAppState extends State<_MyApp> {
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           value: selectedFormats.length == _possibleFormats.length
               ? true
-              : selectedFormats.length == 0 ? false : null,
+              : selectedFormats.length == 0
+                  ? false
+                  : null,
           onChanged: (checked) {
             setState(() {
               selectedFormats = [
